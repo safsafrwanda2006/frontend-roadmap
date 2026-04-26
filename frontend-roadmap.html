@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #1e293b, #0b1120);
+        min-height: 100vh;
+        color: #f8fafc;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 35px;
+        font-size: 32px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+      }
+
+      /* Main Input Area */
+      .add-task-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        background: #1e293b;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .add-task-container input {
+        flex: 1;
+        margin-top: 0;
+        background: #0f172a;
+      }
+
+      /* Task Card */
+      .task {
+        background: #1e293b;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .task:hover {
+        border-color: rgba(56, 189, 248, 0.4);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Header */
+      .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .task-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        font-size: 18px;
+        color: #e2e8f0;
+      }
+
+      /* Subtasks */
+      .subtasks {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+
+      .subtask-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(15, 23, 42, 0.6);
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+      }
+
+      .subtask-item:hover {
+        background: rgba(15, 23, 42, 0.9);
+        border-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .subtask-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #cbd5e1;
+      }
+
+      /* Subtask Input Area */
+      .add-subtask-container {
+        display: flex;
+        gap: 8px;
+      }
+
+      /* Inputs */
+      input[type="text"] {
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        outline: none;
+        background: #0f172a;
+        color: #f8fafc;
+        font-family: inherit;
+        font-size: 14px;
+        transition: 0.2s;
+        width: 100%;
+      }
+
+      input[type="text"]:focus {
+        border-color: #38bdf8;
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+      }
+
+      /* Buttons */
+      button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #38bdf8, #2563eb);
+        color: #ffffff;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #0ea5e9, #1d4ed8);
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-secondary {
+        background: #334155;
+        color: #f8fafc;
+        padding: 8px 14px;
+      }
+
+      .btn-secondary:hover {
+        background: #475569;
+      }
+
+      .delete-btn {
+        background: transparent;
+        color: #64748b;
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+
+      .delete-btn:hover {
+        color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+      }
+
+      /* Checkbox */
+      input[type="checkbox"] {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        accent-color: #38bdf8;
+      }
+
+      /* Completed State */
+      .completed {
+        text-decoration: line-through;
+        color: #64748b;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Frontend Roadmap</h1>
+      
+      <div class="add-task-container">
+        <input type="text" id="newTask" placeholder="Add a new main task..." onkeypress="handleMainTaskKey(event)" />
+        <button class="btn-primary" onclick="addTask()">Add Task</button>
+      </div>
+
+      <div id="tasks"></div>
+    </div>
+
+    <script>
+      let data = JSON.parse(localStorage.getItem("frontend")) || [
+        {
+          title: "Basics",
+          done: false,
+          subs: [
+            { t: "HTML (structure, semantic tags)", d: false },
+            { t: "CSS (flexbox, grid, responsive design)", d: false },
+            { t: "Git & GitHub", d: false },
+          ],
+        },
+        {
+          title: "JavaScript Core",
+          done: false,
+          subs: [
+            { t: "Variables, functions, loops", d: false },
+            { t: "DOM manipulation", d: false },
+            { t: "Events", d: false },
+            { t: "ES6+", d: false },
+          ],
+        },
+        {
+          title: "Advanced JavaScript",
+          done: false,
+          subs: [
+            { t: "Async JS", d: false },
+            { t: "Fetch API", d: false },
+            { t: "Error handling", d: false },
+          ],
+        },
+        {
+          title: "React",
+          done: false,
+          subs: [
+            { t: "Components", d: false },
+            { t: "Props & State", d: false },
+            { t: "Hooks", d: false },
+            { t: "Routing", d: false },
+          ],
+        },
+        {
+          title: "Styling & UI",
+          done: false,
+          subs: [
+            { t: "Tailwind / Bootstrap", d: false },
+            { t: "Responsive best practices", d: false },
+          ],
+        },
+        {
+          title: "State Management",
+          done: false,
+          subs: [
+            { t: "Context API", d: false },
+            { t: "Redux (optional)", d: false },
+          ],
+        },
+        {
+          title: "Real Projects",
+          done: false,
+          subs: [
+            { t: "Dashboard", d: false },
+            { t: "E-commerce UI", d: false },
+            { t: "API apps", d: false },
+          ],
+        },
+      ];
+
+      function save() {
+        localStorage.setItem("frontend", JSON.stringify(data));
+      }
+
+      function render() {
+        const el = document.getElementById("tasks");
+        el.innerHTML = "";
+        data.forEach((task, i) => {
+          let div = document.createElement("div");
+          div.className = "task";
+          
+          // Header
+          div.innerHTML = `
+            <div class="task-header">
+              <div class="task-title">
+                <input type='checkbox' ${task.done ? "checked" : ""} onchange='toggle(${i})'>
+                <span class="${task.done ? "completed" : ""}">${task.title}</span>
+              </div>
+              <button class='delete-btn' title="Delete Task" onclick='removeTask(${i})'>✖</button>
+            </div>
+          `;
+
+          // Subtasks container
+          let subDiv = document.createElement("div");
+          subDiv.className = "subtasks";
+          task.subs.forEach((s, si) => {
+            let sub = document.createElement("div");
+            sub.className = "subtask-item";
+            sub.innerHTML = `
+              <div class="subtask-content ${s.d ? "completed" : ""}">
+                <input type='checkbox' ${s.d ? "checked" : ""} onchange='toggleSub(${i},${si})'> 
+                <span>${s.t}</span>
+              </div>
+              <button class='delete-btn' title="Delete Subtask" onclick='removeSub(${i},${si})'>✖</button>
+            `;
+            subDiv.appendChild(sub);
+          });
+
+          // Add Subtask Input Area
+          let addSubContainer = document.createElement("div");
+          addSubContainer.className = "add-subtask-container";
+          
+          let input = document.createElement("input");
+          input.type = "text";
+          input.placeholder = "Add a subtask...";
+          input.onkeypress = (e) => {
+            if (e.key === 'Enter' && input.value.trim() !== '') {
+              task.subs.push({ t: input.value.trim(), d: false });
+              save();
+              render();
+            }
+          };
+
+          let btn = document.createElement("button");
+          btn.className = "btn-secondary";
+          btn.innerText = "Add";
+          btn.onclick = () => {
+            if (input.value.trim() !== '') {
+              task.subs.push({ t: input.value.trim(), d: false });
+              save();
+              render();
+            }
+          };
+
+          addSubContainer.appendChild(input);
+          addSubContainer.appendChild(btn);
+
+          div.appendChild(subDiv);
+          div.appendChild(addSubContainer);
+          el.appendChild(div);
+        });
+      }
+
+      function toggle(i) {
+        data[i].done = !data[i].done;
+        save();
+        render();
+      }
+
+      function toggleSub(i, si) {
+        data[i].subs[si].d = !data[i].subs[si].d;
+        save();
+        render();
+      }
+
+      function addTask() {
+        let input = document.getElementById("newTask");
+        let val = input.value.trim();
+        if (val) {
+          data.push({ title: val, done: false, subs: [] });
+          input.value = "";
+          save();
+          render();
+        }
+      }
+
+      function handleMainTaskKey(e) {
+        if (e.key === 'Enter') {
+          addTask();
+        }
+      }
+
+      function removeTask(i) {
+        if (confirm("Are you sure you want to delete this entire task and its subtasks?")) {
+          data.splice(i, 1);
+          save();
+          render();
+        }
+      }
+
+      function removeSub(i, si) {
+        if (confirm("Are you sure you want to delete this subtask?")) {
+          data[i].subs.splice(si, 1);
+          save();
+          render();
+        }
+      }
+
+      render();
+    </script>
+  </body>
+</html>
